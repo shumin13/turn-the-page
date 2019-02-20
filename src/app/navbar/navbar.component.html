@@ -1,3 +1,19 @@
-<p>
-  navbar works!
-</p>
+<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+  <a class="navbar-brand font-weight-bold" routerLink="/books">TURN THE PAGE</a>
+  <button (click)="isOpen = !isOpen" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
+    aria-controls="navbarNav" [attr.aria-expanded]="isOpen" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  <div class="collapse navbar-collapse justify-content-between" [class.show]="isOpen" id="navbarNav">
+    <div class="navbar-nav">
+      <a class="nav-item nav-link" routerLink="/books" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
+        (click)="isOpen = !isOpen">Books</a>
+      <a class="nav-item nav-link" routerLink="/books/new" routerLinkActive="active" (click)="isOpen = !isOpen">Create
+        New Book</a>
+    </div>
+    <form class="form-inline">
+      <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search">
+      <button class="btn btn-outline-dark my-2 my-sm-0" type="submit">Search</button>
+    </form>
+  </div>
+</nav>
