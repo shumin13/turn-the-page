@@ -4,7 +4,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { StoreModule } from '@ngrx/store';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { EffectsModule } from '@ngrx/effects';
-import { StoreRouterConnectingModule } from '@ngrx/router-store';
+import { StoreRouterConnectingModule, RouterStateSerializer } from '@ngrx/router-store';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
@@ -16,6 +16,7 @@ import { BookNewComponent } from './books/book-new/book-new.component';
 import { BookEffects } from './books/store/book.effects';
 import { reducers, metaReducers } from './reducers';
 import { environment } from '../environments/environment';
+import { CustomSerializer } from './books/router-store/custom-route-serializer';
 
 @NgModule({
   declarations: [
@@ -33,9 +34,11 @@ import { environment } from '../environments/environment';
     StoreModule.forRoot(reducers, { metaReducers }),
     StoreDevtoolsModule.instrument({ maxAge: 25, logOnly: environment.production }),
     EffectsModule.forRoot([BookEffects]),
-    StoreRouterConnectingModule
+    StoreRouterConnectingModule.forRoot({
+      stateKey: 'router'
+    })
   ],
-  providers: [],
+  providers: [{ provide: RouterStateSerializer, useClass: CustomSerializer }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
