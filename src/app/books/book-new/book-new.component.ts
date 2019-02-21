@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormBuilder, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-book-new',
@@ -7,9 +8,39 @@ import { Component, OnInit } from '@angular/core';
 })
 export class BookNewComponent implements OnInit {
 
-  constructor() { }
+  bookForm = this.fb.group({
+    title: ['', Validators.required],
+    isbn: ['', Validators.required],
+    authors: ['', Validators.required],
+    imageUrl: ['', [Validators.required, Validators.pattern(/\.(?:jpg|gif|png)$/)]],
+    description: ['', Validators.required]
+  });
 
-  ngOnInit() {
+  constructor(private fb: FormBuilder) { }
+
+  ngOnInit() { }
+
+  get title() {
+    return this.bookForm.get('title');
   }
 
+  get isbn() {
+    return this.bookForm.get('isbn');
+  }
+
+  get authors() {
+    return this.bookForm.get('authors');
+  }
+
+  get imageUrl() {
+    return this.bookForm.get('imageUrl');
+  }
+
+  get description() {
+    return this.bookForm.get('description');
+  }
+
+  onSubmit() {
+    console.log(this.bookForm.value);
+  }
 }
