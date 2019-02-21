@@ -5,11 +5,12 @@ import { BooksComponent } from './books/books.component';
 import { BookListComponent } from './books/book-list/book-list.component';
 import { BookNewComponent } from './books/book-new/book-new.component';
 import { BookDetailComponent } from './books/book-detail/book-detail.component';
+import { BookResolverService } from './books/book-resolver.service';
 
 const appRoutes: Routes = [
   {
     path: 'books', component: BooksComponent, children: [
-      { path: '', component: BookListComponent },
+      { path: '', component: BookListComponent, resolve: { books: BookResolverService } },
       { path: 'new', component: BookNewComponent },
       { path: ':id', component: BookDetailComponent }
     ]
