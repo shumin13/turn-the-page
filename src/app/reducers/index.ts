@@ -1,6 +1,8 @@
 import { ActionReducer, ActionReducerMap, MetaReducer, createFeatureSelector, createSelector } from '@ngrx/store';
+import { Dictionary } from '@ngrx/entity';
 import { localStorageSync } from 'ngrx-store-localstorage';
 import * as fromBook from '../books/store/book.reducer';
+import { Book } from '../books/book.model';
 
 export interface State {
   books: fromBook.BookState;
@@ -26,7 +28,17 @@ export const getBooksLoaded = createSelector(
   fromBook.getBooksLoaded
 );
 
+export const selectAllEntities = createSelector(
+  selectBooksState,
+  fromBook.selectAllEntities
+);
+
 export const selectAllBooks = createSelector(
   selectBooksState,
   fromBook.selectAllBooks
+);
+
+export const getBookEntityById = createSelector(
+  selectAllEntities,
+  (entities: Dictionary<Book>, props: Dictionary<any>) => entities[props.id]
 );

@@ -4,14 +4,14 @@ import { Observable, of } from 'rxjs';
 import { tap, take, filter, switchMap, catchError } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
-import { Book } from './book.model';
-import { State } from '../reducers';
-import { LoadBooks } from './store/book.actions';
+import { Book } from '../book.model';
+import { State } from '../../reducers';
+import { LoadBooks } from '../store/book.actions';
 
 @Injectable({
   providedIn: 'root'
 })
-export class BookResolverService implements Resolve<Book[]> {
+export class BooksResolverService implements Resolve<Book[]> {
 
   constructor(private store: Store<State>) { }
 

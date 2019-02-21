@@ -35,6 +35,6 @@ export function bookReducer(state = initialState, action: BookActionsUnion): Boo
 
 export const getBooksLoaded = (state: BookState) => state.booksLoaded;
 
-const { selectAll } = adapter.getSelectors();
+export const selectAllEntities = (state: BookState) => state.entities;
 
-export const selectAllBooks = selectAll;
+export const selectAllBooks = (state: BookState) => Object.values(state.entities);
