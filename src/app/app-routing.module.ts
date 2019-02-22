@@ -7,6 +7,7 @@ import { BookNewComponent } from './books/book-new/book-new.component';
 import { BookDetailComponent } from './books/book-detail/book-detail.component';
 import { BookResolverService } from './books/guards/book-resolver.service';
 import { BooksResolverService } from './books/guards/books-resolver.service';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 const appRoutes: Routes = [
   {
@@ -29,8 +30,9 @@ const appRoutes: Routes = [
       }
     ]
   },
+  { path: 'error', component: ErrorPageComponent },
   { path: '', redirectTo: '/books', pathMatch: 'full' },
-  { path: '**', redirectTo: '/books' }
+  { path: '**', redirectTo: '/error' }
 ];
 
 @NgModule({

@@ -18,6 +18,7 @@ import { BookEffects } from './books/store/book.effects';
 import { reducers, metaReducers } from './reducers';
 import { environment } from '../environments/environment';
 import { CustomSerializer } from './books/router-store/custom-route-serializer';
+import { ErrorPageComponent } from './error-page/error-page.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +27,8 @@ import { CustomSerializer } from './books/router-store/custom-route-serializer';
     BooksComponent,
     BookListComponent,
     BookDetailComponent,
-    BookNewComponent
+    BookNewComponent,
+    ErrorPageComponent
   ],
   imports: [
     BrowserModule,
