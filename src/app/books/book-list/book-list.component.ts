@@ -17,6 +17,7 @@ export class BookListComponent implements OnInit, OnDestroy {
   books: Book[] = [];
   searchSub: Subscription;
   searching = false;
+  query = '';
 
   constructor(
     private route: ActivatedRoute,
@@ -38,7 +39,10 @@ export class BookListComponent implements OnInit, OnDestroy {
 
   search(query: string) {
     this.searching = true;
-    this.store.dispatch(new Search(query));
+    this.query = query;
+    if (query !== '') {
+      this.store.dispatch(new Search(query));
+    }
   }
 
   ngOnDestroy() {
