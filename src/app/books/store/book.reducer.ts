@@ -16,14 +16,14 @@ export function bookReducer(state = initialState, action: BookActionsUnion): Boo
     switch (action.type) {
         case BookActionTypes.LOAD_BOOKS_SUCCESS: {
             return adapter.addAll(
-                action.payload.books, {
+                action.payload, {
                     ...state,
                     booksLoaded: true
                 }
             );
         }
-        case BookActionTypes.ADD_BOOK: {
-            return adapter.addOne(action.payload.book, state);
+        case BookActionTypes.ADD_BOOK_SUCCESS: {
+            return adapter.addOne(action.payload, state);
         }
         case BookActionTypes.DELETE_BOOK: {
             return adapter.removeOne(action.payload.id, state);

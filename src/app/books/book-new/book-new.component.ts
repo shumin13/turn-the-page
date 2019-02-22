@@ -1,5 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { Store } from '@ngrx/store';
+
+import { State } from './../../reducers/index';
+import { AddBook } from './../store/book.actions';
 
 @Component({
   selector: 'app-book-new',
@@ -8,7 +12,7 @@ import { FormBuilder, Validators } from '@angular/forms';
 })
 export class BookNewComponent implements OnInit {
 
-  bookForm = this.fb.group({
+  form = this.fb.group({
     title: ['', Validators.required],
     isbn: ['', Validators.required],
     authors: ['', Validators.required],
@@ -16,31 +20,34 @@ export class BookNewComponent implements OnInit {
     description: ['', Validators.required]
   });
 
-  constructor(private fb: FormBuilder) { }
+  constructor(
+    private fb: FormBuilder,
+    private store: Store<State>
+  ) { }
 
   ngOnInit() { }
 
   get title() {
-    return this.bookForm.get('title');
+    return this.form.get('title');
   }
 
   get isbn() {
-    return this.bookForm.get('isbn');
+    return this.form.get('isbn');
   }
 
   get authors() {
-    return this.bookForm.get('authors');
+    return this.form.get('authors');
   }
 
   get imageUrl() {
-    return this.bookForm.get('imageUrl');
+    return this.form.get('imageUrl');
   }
 
   get description() {
-    return this.bookForm.get('description');
+    return this.form.get('description');
   }
 
   onSubmit() {
-    console.log(this.bookForm.value);
+    this.store.dispatch(new AddBook(this.form.value));
   }
 }
