@@ -7,7 +7,9 @@ export enum BookActionTypes {
     ADD_BOOK = '[Create Book Page] Add Book',
     ADD_BOOK_SUCCESS = '[Books API] Add Book Success',
     ADD_BOOK_FAILURE = '[Books API] Add Book Failure',
-    DELETE_BOOK = '[Book Page] Delete Book'
+    DELETE_BOOK = '[Book Page] Delete Book',
+    DELETE_BOOK_SUCCESS = '[Books API] Delete Book Success',
+    DELETE_BOOK_FAILURE = '[Books API] Delete Book Failure'
 }
 
 export class LoadBooks implements Action {
@@ -39,7 +41,17 @@ export class AddBookFailure implements Action {
 export class DeleteBook implements Action {
     readonly type = BookActionTypes.DELETE_BOOK;
 
-    constructor(public payload: { id: string }) { }
+    constructor(public payload: number) { }
+}
+
+export class DeleteBookSuccess implements Action {
+    readonly type = BookActionTypes.DELETE_BOOK_SUCCESS;
+
+    constructor(public payload: number) { }
+}
+
+export class DeleteBookFailure implements Action {
+    readonly type = BookActionTypes.DELETE_BOOK_FAILURE;
 }
 
 export type BookActionsUnion =
@@ -48,4 +60,6 @@ export type BookActionsUnion =
     AddBook |
     AddBookSuccess |
     AddBookFailure |
-    DeleteBook;
+    DeleteBook |
+    DeleteBookSuccess |
+    DeleteBookFailure;

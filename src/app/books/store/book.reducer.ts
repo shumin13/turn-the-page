@@ -26,7 +26,7 @@ export function bookReducer(state = initialState, action: BookActionsUnion): Boo
             return adapter.addOne(action.payload, state);
         }
         case BookActionTypes.DELETE_BOOK: {
-            return adapter.removeOne(action.payload.id, state);
+            return adapter.removeOne(action.payload, state);
         }
         default:
             return state;

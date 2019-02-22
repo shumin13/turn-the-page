@@ -5,7 +5,7 @@ import { of } from 'rxjs';
 import { switchMap, map, mergeMap, catchError } from 'rxjs/operators';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 
-import { BookActionTypes, AddBook, AddBookSuccess, AddBookFailure } from './book.actions';
+import { BookActionTypes, AddBook, AddBookSuccess, AddBookFailure, DeleteBook, DeleteBookSuccess, DeleteBookFailure } from './book.actions';
 import { Book } from '../book.model';
 import { environment } from 'src/environments/environment';
 
@@ -44,6 +44,29 @@ export class BookEffects {
                 catchError(error => {
                     this.router.navigate(['/error', { status: error.status }]);
                     return of(new AddBookFailure());
+                })
+            );
+        })
+    );
+
+    @Effect()
+    deleteBook$ = this.actions$.pipe(
+        ofType<DeleteBook>(BookActionTypes.DELETE_BOOK),
+        map(action => action.payload),
+        mergeMap(id => {
+            const httpOptions = {
+                headers: new HttpHeaders({
+                    'Content-Type': 'application/json'
+                })
+            };
+            return this.httpClient.delete<Book>(`${environment.apiUrl}/${id}`, httpOptions).pipe(
+                map(() => {
+                    this.router.navigate(['/']);
+                    return new DeleteBookSuccess(id);
+                }),
+                catchError(error => {
+                    this.router.navigate(['/error', { status: error.status }]);
+                    return of(new DeleteBookFailure());
                 })
             );
         })

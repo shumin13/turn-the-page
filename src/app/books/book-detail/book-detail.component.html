@@ -10,7 +10,7 @@
           <p class="card-text">By {{ book.authors }}</p>
           <p class="card-text">ISBN {{ book.isbn }}</p>
           <p class="card-text">{{ book.description }}</p>
-          <button class="btn btn-danger">Delete</button>
+          <button class="btn btn-danger" (click)="deleteBook()">Delete</button>
         </div>
       </div>
     </div>
