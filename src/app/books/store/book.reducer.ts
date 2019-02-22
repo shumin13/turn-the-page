@@ -4,12 +4,14 @@ import { Book } from '../book.model';
 
 export interface BookState extends EntityState<Book> {
     booksLoaded: boolean;
+    search: Book[];
 }
 
 export const adapter: EntityAdapter<Book> = createEntityAdapter<Book>();
 
 const initialState: BookState = adapter.getInitialState({
-    booksLoaded: false
+    booksLoaded: false,
+    search: []
 });
 
 export function bookReducer(state = initialState, action: BookActionsUnion): BookState {
@@ -25,8 +27,14 @@ export function bookReducer(state = initialState, action: BookActionsUnion): Boo
         case BookActionTypes.ADD_BOOK_SUCCESS: {
             return adapter.addOne(action.payload, state);
         }
-        case BookActionTypes.DELETE_BOOK: {
+        case BookActionTypes.DELETE_BOOK_SUCCESS: {
             return adapter.removeOne(action.payload, state);
+        }
+        case BookActionTypes.SEARCH_SUCCESS: {
+            return {
+                ...state,
+                search: action.payload
+            };
         }
         default:
             return state;
@@ -34,6 +42,8 @@ export function bookReducer(state = initialState, action: BookActionsUnion): Boo
 }
 
 export const getBooksLoaded = (state: BookState) => state.booksLoaded;
+
+export const getSearchResults = (state: BookState) => state.search;
 
 export const selectAllEntities = (state: BookState) => state.entities;
 

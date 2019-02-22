@@ -2,10 +2,20 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
-import { switchMap, map, mergeMap, catchError } from 'rxjs/operators';
+import { switchMap, map, mergeMap, catchError, debounceTime } from 'rxjs/operators';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 
-import { BookActionTypes, AddBook, AddBookSuccess, AddBookFailure, DeleteBook, DeleteBookSuccess, DeleteBookFailure } from './book.actions';
+import {
+    BookActionTypes,
+    AddBook, AddBookSuccess,
+    AddBookFailure,
+    DeleteBook,
+    DeleteBookSuccess,
+    DeleteBookFailure,
+    Search,
+    SearchSuccess,
+    SearchFailure
+} from './book.actions';
 import { Book } from '../book.model';
 import { environment } from 'src/environments/environment';
 
@@ -67,6 +77,22 @@ export class BookEffects {
                 catchError(error => {
                     this.router.navigate(['/error', { status: error.status }]);
                     return of(new DeleteBookFailure());
+                })
+            );
+        })
+    );
+
+    @Effect()
+    search$ = this.actions$.pipe(
+        ofType<Search>(BookActionTypes.SEARCH),
+        debounceTime(400),
+        map(action => action.payload),
+        switchMap(query => {
+            return this.httpClient.get<Book>(`${environment.apiUrl}?q=${query}`).pipe(
+                map((books: Book[]) => new SearchSuccess(books)),
+                catchError(error => {
+                    this.router.navigate(['/error', { status: error.status }]);
+                    return of(new SearchFailure());
                 })
             );
         })

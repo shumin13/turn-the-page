@@ -9,7 +9,10 @@ export enum BookActionTypes {
     ADD_BOOK_FAILURE = '[Books API] Add Book Failure',
     DELETE_BOOK = '[Book Page] Delete Book',
     DELETE_BOOK_SUCCESS = '[Books API] Delete Book Success',
-    DELETE_BOOK_FAILURE = '[Books API] Delete Book Failure'
+    DELETE_BOOK_FAILURE = '[Books API] Delete Book Failure',
+    SEARCH = '[Books Page] Search',
+    SEARCH_SUCCESS = '[Books API] Search Success',
+    SEARCH_FAILURE = '[Books API] Search Failure'
 }
 
 export class LoadBooks implements Action {
@@ -54,6 +57,22 @@ export class DeleteBookFailure implements Action {
     readonly type = BookActionTypes.DELETE_BOOK_FAILURE;
 }
 
+export class Search implements Action {
+    readonly type = BookActionTypes.SEARCH;
+
+    constructor(public payload: string) { }
+}
+
+export class SearchSuccess implements Action {
+    readonly type = BookActionTypes.SEARCH_SUCCESS;
+
+    constructor(public payload: Book[]) { }
+}
+
+export class SearchFailure implements Action {
+    readonly type = BookActionTypes.SEARCH_FAILURE;
+}
+
 export type BookActionsUnion =
     LoadBooks |
     LoadBooksSuccess |
@@ -62,4 +81,7 @@ export type BookActionsUnion =
     AddBookFailure |
     DeleteBook |
     DeleteBookSuccess |
-    DeleteBookFailure;
+    DeleteBookFailure |
+    Search |
+    SearchSuccess |
+    SearchFailure;
