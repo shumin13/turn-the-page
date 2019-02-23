@@ -51,7 +51,7 @@ export class BookEffects {
             };
             return this.httpClient.post<Book>(environment.apiUrl, book, httpOptions).pipe(
                 map(newBook => {
-                    this.router.navigate(['/']);
+                    this.router.navigate(['/books', newBook.id]);
                     return new AddBookSuccess(newBook);
                 }),
                 catchError(error => {
