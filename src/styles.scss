@@ -4,6 +4,15 @@
   font-family: 'Lora', serif;
 }
 
+html {
+  height: 100%;
+  overflow: auto;
+}
+
+body {
+  height: 100%;
+}
+
 .main-container {
   padding-top: 30px;
   padding-bottom: 30px;
