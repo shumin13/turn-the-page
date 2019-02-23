@@ -4,6 +4,7 @@ import { Book } from '../book.model';
 
 export interface BookState extends EntityState<Book> {
     booksLoaded: boolean;
+    serverDown: boolean;
     search: Book[];
 }
 
@@ -11,11 +12,18 @@ export const adapter: EntityAdapter<Book> = createEntityAdapter<Book>();
 
 const initialState: BookState = adapter.getInitialState({
     booksLoaded: false,
+    serverDown: false,
     search: []
 });
 
 export function bookReducer(state = initialState, action: BookActionsUnion): BookState {
     switch (action.type) {
+        case BookActionTypes.RESET_SERVER_STATUS: {
+            return {
+                ...state,
+                serverDown: false
+            };
+        }
         case BookActionTypes.LOAD_BOOKS_SUCCESS: {
             return adapter.addAll(
                 action.payload, {
@@ -23,6 +31,12 @@ export function bookReducer(state = initialState, action: BookActionsUnion): Boo
                     booksLoaded: true
                 }
             );
+        }
+        case BookActionTypes.LOAD_BOOKS_FAILURE: {
+            return {
+                ...state,
+                serverDown: true
+            };
         }
         case BookActionTypes.ADD_BOOK_SUCCESS: {
             return adapter.addOne(action.payload, state);
@@ -41,10 +55,6 @@ export function bookReducer(state = initialState, action: BookActionsUnion): Boo
     }
 }
 
-export const getBooksLoaded = (state: BookState) => state.booksLoaded;
-
 export const getSearchResults = (state: BookState) => state.search;
 
 export const selectAllEntities = (state: BookState) => state.entities;
-
-export const selectAllBooks = (state: BookState) => Object.values(state.entities);

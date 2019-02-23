@@ -27,11 +27,6 @@ export const metaReducers: MetaReducer<State>[] = [localStorageSyncReducer];
 
 export const selectBooksState = createFeatureSelector<fromBook.BookState>('books');
 
-export const getBooksLoaded = createSelector(
-  selectBooksState,
-  fromBook.getBooksLoaded
-);
-
 export const getSearchResults = createSelector(
   selectBooksState,
   fromBook.getSearchResults

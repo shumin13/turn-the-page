@@ -1,12 +1,12 @@
 import { Injectable } from '@angular/core';
 import { Resolve } from '@angular/router';
 import { Observable, of } from 'rxjs';
-import { tap, take, filter, switchMap, catchError } from 'rxjs/operators';
+import { tap, take, filter, switchMap } from 'rxjs/operators';
 import { Store } from '@ngrx/store';
 
 import { Book } from '../book.model';
 import { State } from '../../reducers';
-import { LoadBooks } from '../store/book.actions';
+import { LoadBooks, ResetServerStatus } from '../store/book.actions';
 
 @Injectable({
   providedIn: 'root'
@@ -18,11 +18,13 @@ export class BooksResolverService implements Resolve<Book[]> {
   getFromStoreOrAPI(): Observable<any> {
     return this.store.select('books').pipe(
       tap((books: any) => {
-        if (!books.booksLoaded) {
+        if (books.serverDown) {
+          this.store.dispatch(new ResetServerStatus());
+        } else if (!books.booksLoaded) {
           this.store.dispatch(new LoadBooks());
         }
       }),
-      filter((books: any) => books.ids.length),
+      filter((books: any) => books.serverDown || books.booksLoaded),
       take(1)
     );
   }
@@ -30,9 +32,12 @@ export class BooksResolverService implements Resolve<Book[]> {
   resolve(): Observable<any[]> {
     return this.getFromStoreOrAPI().pipe(
       switchMap((books: any) => {
-        return of(Object.values(books.entities));
-      }),
-      catchError(() => of([]))
+        if (books.ids.length !== 0) {
+          return of(Object.values(books.entities));
+        } else {
+          return of([]);
+        }
+      })
     );
   }
 }

@@ -2,12 +2,15 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Router } from '@angular/router';
 import { of } from 'rxjs';
-import { switchMap, map, mergeMap, catchError, debounceTime } from 'rxjs/operators';
+import { map, switchMap, exhaustMap, catchError, debounceTime } from 'rxjs/operators';
 import { Effect, Actions, ofType } from '@ngrx/effects';
 
 import {
     BookActionTypes,
-    AddBook, AddBookSuccess,
+    LoadBooksSuccess,
+    LoadBooksFailure,
+    AddBook,
+    AddBookSuccess,
     AddBookFailure,
     DeleteBook,
     DeleteBookSuccess,
@@ -26,13 +29,13 @@ export class BookEffects {
     loadBooks$ = this.actions$.pipe(
         ofType(BookActionTypes.LOAD_BOOKS),
         switchMap(() => {
-            return this.httpClient.get<Book[]>(environment.apiUrl);
-        }),
-        map(books => {
-            return {
-                type: BookActionTypes.LOAD_BOOKS_SUCCESS,
-                payload: books
-            };
+            return this.httpClient.get<Book>(environment.apiUrl).pipe(
+                map((books: Book[]) => new LoadBooksSuccess(books)),
+                catchError(error => {
+                    this.router.navigate(['/error', { status: error.status }]);
+                    return of(new LoadBooksFailure());
+                })
+            );
         })
     );
 
@@ -40,7 +43,7 @@ export class BookEffects {
     addBook$ = this.actions$.pipe(
         ofType<AddBook>(BookActionTypes.ADD_BOOK),
         map(action => action.payload),
-        mergeMap(book => {
+        exhaustMap(book => {
             const httpOptions = {
                 headers: new HttpHeaders({
                     'Content-Type': 'application/json'
@@ -63,7 +66,7 @@ export class BookEffects {
     deleteBook$ = this.actions$.pipe(
         ofType<DeleteBook>(BookActionTypes.DELETE_BOOK),
         map(action => action.payload),
-        mergeMap(id => {
+        exhaustMap(id => {
             const httpOptions = {
                 headers: new HttpHeaders({
                     'Content-Type': 'application/json'

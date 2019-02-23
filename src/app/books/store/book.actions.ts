@@ -2,8 +2,10 @@ import { Action } from '@ngrx/store';
 import { Book } from '../book.model';
 
 export enum BookActionTypes {
+    RESET_SERVER_STATUS = '[Books Page] Reset Server Status',
     LOAD_BOOKS = '[Books Page] Load Books',
     LOAD_BOOKS_SUCCESS = '[Books API] Load Books Success',
+    LOAD_BOOKS_FAILURE = '[Books API] Load Books Failure',
     ADD_BOOK = '[Create Book Page] Add Book',
     ADD_BOOK_SUCCESS = '[Books API] Add Book Success',
     ADD_BOOK_FAILURE = '[Books API] Add Book Failure',
@@ -15,6 +17,10 @@ export enum BookActionTypes {
     SEARCH_FAILURE = '[Books API] Search Failure'
 }
 
+export class ResetServerStatus implements Action {
+    readonly type = BookActionTypes.RESET_SERVER_STATUS;
+}
+
 export class LoadBooks implements Action {
     readonly type = BookActionTypes.LOAD_BOOKS;
 }
@@ -23,6 +29,10 @@ export class LoadBooksSuccess implements Action {
     readonly type = BookActionTypes.LOAD_BOOKS_SUCCESS;
 
     constructor(public payload: Book[]) { }
+}
+
+export class LoadBooksFailure implements Action {
+    readonly type = BookActionTypes.LOAD_BOOKS_FAILURE;
 }
 
 export class AddBook implements Action {
@@ -74,8 +84,10 @@ export class SearchFailure implements Action {
 }
 
 export type BookActionsUnion =
+    ResetServerStatus |
     LoadBooks |
     LoadBooksSuccess |
+    LoadBooksFailure |
     AddBook |
     AddBookSuccess |
     AddBookFailure |
