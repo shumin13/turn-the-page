@@ -1,4 +1,4 @@
-<nav class="navbar navbar-expand-md navbar-light bg-light sticky-top">
+<nav class="navbar navbar-expand-md navbar-dark sticky-top">
   <a class="navbar-brand font-weight-bold" routerLink="/books">TURN THE PAGE</a>
   <button (click)="isOpen = !isOpen" class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
     aria-controls="navbarNav" [attr.aria-expanded]="isOpen" aria-label="Toggle navigation">
@@ -7,9 +7,9 @@
   <div class="collapse navbar-collapse" [class.show]="isOpen" id="navbarNav">
     <div class="navbar-nav">
       <a class="nav-item nav-link" routerLink="/books" routerLinkActive="active" [routerLinkActiveOptions]="{exact:true}"
-        (click)="isOpen = !isOpen">Books</a>
+        (click)="isOpen = !isOpen">View All</a>
       <a class="nav-item nav-link" routerLink="/books/new" routerLinkActive="active" (click)="isOpen = !isOpen">Create
-        New Book</a>
+        New</a>
     </div>
   </div>
 </nav>
