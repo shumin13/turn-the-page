@@ -1,3 +1,41 @@
+input {
+  height: 45px;
+}
+
+.card-title {
+  font-size: 1.15rem;
+  font-weight: 700;
+}
+
+.card-author {
+  font-size: 0.9rem;
+}
+
+.overlay {
+  display: flex;
+  justify-content: flex-end;
+  align-items: flex-end;
+  position: absolute;
+  height: 100%;
+  width: 100%;
+  opacity: 0;
+  z-index: 2;
+  background: transparent;
+  box-shadow: 0 .5rem 1rem rgba(0, 0, 0, .15);
+  text-decoration: none;
+}
+
+.card:hover .overlay {
+  opacity: 1;
+}
+
+.overlay-text {
+  background: rgba(247, 235, 97, 0.9);
+  color: black;
+  font-size: 1rem;
+  padding: 12px;
+}
+
 @media (min-width: 576px) {
   .card-deck .card {
     flex: 0 0 70%;

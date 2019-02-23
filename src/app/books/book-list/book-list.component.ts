@@ -1,4 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
+import { FormBuilder } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { Store, select } from '@ngrx/store';
@@ -16,10 +17,15 @@ export class BookListComponent implements OnInit, OnDestroy {
 
   books: Book[] = [];
   searchSub: Subscription;
+  querySub: Subscription;
   searching = false;
   query = '';
+  form = this.fb.group({
+    query: ''
+  });
 
   constructor(
+    private fb: FormBuilder,
     private route: ActivatedRoute,
     private store: Store<State>
   ) { }
@@ -35,18 +41,16 @@ export class BookListComponent implements OnInit, OnDestroy {
           this.books = searchResults;
         }
       });
-  }
-
-  search(query: string) {
-    this.searching = true;
-    this.query = query;
-    if (query !== '') {
+    this.querySub = this.form.get('query').valueChanges.subscribe(query => {
+      this.searching = true;
+      this.query = query;
       this.store.dispatch(new Search(query));
-    }
+    });
   }
 
   ngOnDestroy() {
     this.searchSub.unsubscribe();
+    this.querySub.unsubscribe();
   }
 
 }
