@@ -1,0 +1,22 @@
+.card-title {
+  font-size: 1.9rem;
+  font-weight: 700;
+}
+
+.card-author {
+  font-size: 1.3rem;
+}
+
+@media (max-width: 767.98px) {
+  .card-title {
+    font-size: 1.3rem;
+  }
+
+  .card-author {
+    font-size: 1rem;
+  }
+
+  .card-description {
+    font-size: 0.9rem;
+  }
+}

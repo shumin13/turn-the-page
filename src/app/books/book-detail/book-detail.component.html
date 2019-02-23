@@ -1,15 +1,16 @@
-<div class="card-deck justify-content-center">
-  <div class="card mb-3" style="max-width: 80%;">
+<div class="d-flex flex-row justify-content-center">
+  <div class="card mb-3 border-0" style="max-width: 80%;">
     <div class="row no-gutters">
       <div class="col-md-4">
-        <img src="{{ book.imageUrl }}" class="card-img" alt="{{ book.title }}">
+        <img src="{{ book.imageUrl }}" onerror="this.onerror=null;this.src='assets/images/img_cover_placeholder.png';"
+          class="card-img" alt="{{ book.title }}">
       </div>
       <div class="col-md-8">
         <div class="card-body">
           <h5 class="card-title">{{ book.title }}</h5>
-          <p class="card-text">By {{ book.authors }}</p>
-          <p class="card-text">ISBN {{ book.isbn }}</p>
-          <p class="card-text">{{ book.description }}</p>
+          <p class="card-text card-author">by <span class="font-italic">{{ book.authors }}</span></p>
+          <p class="card-text card-description text-justify">{{ book.description }}</p>
+          <p class="card-text text-right font-italic">ISBN {{ book.isbn }}</p>
           <div class="d-flex justify-content-between">
             <button class="btn btn-danger" (click)="deleteBook()">Delete</button>
             <button class="btn btn-dark" routerLink="../new">Add New Book</button>
