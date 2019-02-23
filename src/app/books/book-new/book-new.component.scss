@@ -1,0 +1,33 @@
+.wrapper {
+  position: relative;
+}
+
+.background {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 100%;
+  z-index: -1;
+  background: aliceblue;
+  background-image: url("/assets/images/background.png");
+  background-size: cover;
+  background-position: center center;
+}
+
+.form-container {
+  border-radius: 50px;
+}
+
+@media (max-width: 767.98px) {
+  .background {
+    display: none;
+  }
+
+  .form-container {
+    border-radius: 0;
+  }
+
+  h2 {
+    font-size: 1.7rem;
+  }
+}
