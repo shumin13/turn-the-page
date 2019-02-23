@@ -1,27 +1,47 @@
-# TurnThePage
+# Turn The Page
+**[Angular & NgRx] Book Database with Search, Create, Read and Delete Functionality**
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.9.
+<img src="src/assets/images/homepage.png" height="400">
 
-## Development server
+## Live Version
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+* https://turn-the-page-464e5.firebaseapp.com/
 
-## Code scaffolding
+## Getting Started
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+#### Start JSON Server
 
-## Build
+* `npm install -g json-server`
+* `json-server --watch db.json`
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
+#### Start Development Server
 
-## Running unit tests
+* `npm install`
+* `ng serve -o`
 
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
+## Description
 
-## Running end-to-end tests
+Users to be able to:
 
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
+* Search for book(s)
+* [Create] Add new book
+* [Read] List all books / one book
+* [Delete] Delete a book
 
-## Further help
+## Future Implementations
 
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+* Add loader to improve user experience
+* Include update functionality
+* Authentication (Register/Login/Logout)
+
+## Built With
+
+* [Angular 6](https://angular.io/)
+* [Bootstrap 4](https://getbootstrap.com/)
+* [NgRx](https://ngrx.io/)
+* [ngrx-store-localstorage](https://github.com/btroncone/ngrx-store-localstorage)
+* [JSON Server](https://github.com/typicode/json-server)
+
+## Acknowledgements
+* [Open Book Free Icon](https://icons8.com/icon/52991/open-book)
+* [OpenTrolley Bookstore Pte. Ltd.](https://opentrolley.com.sg/bestseller/computers)
