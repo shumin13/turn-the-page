@@ -21,7 +21,7 @@
 
 ## Description
 
-Users to be able to:
+User Stories:
 
 * Search for book(s)
 * [Create] Add new book
@@ -30,7 +30,6 @@ Users to be able to:
 
 ## Future Implementations
 
-* Add loader to improve user experience
 * Include update functionality
 * Authentication (Register/Login/Logout)
 
@@ -43,5 +42,6 @@ Users to be able to:
 * [JSON Server](https://github.com/typicode/json-server)
 
 ## Acknowledgements
-* [Open Book Free Icon](https://icons8.com/icon/52991/open-book)
-* [OpenTrolley Bookstore Pte. Ltd.](https://opentrolley.com.sg/bestseller/computers)
+* Favicon from [Open Book Free Icon](https://icons8.com/icon/52991/open-book)
+* Broken robot image from [iStockphoto LP.](https://www.istockphoto.com/sg/vector/broken-robot-gm599486444-102908267)
+* Data extracted from [OpenTrolley Bookstore Pte. Ltd.](https://opentrolley.com.sg/bestseller/computers)
