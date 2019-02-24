@@ -18,7 +18,7 @@ export class BookListComponent implements OnInit, OnDestroy {
   books: Book[] = [];
   searchSub: Subscription;
   querySub: Subscription;
-  searching = false;
+  loading = false;
   query = '';
   form = this.fb.group({
     query: ''
@@ -37,12 +37,13 @@ export class BookListComponent implements OnInit, OnDestroy {
       });
     this.searchSub = this.store.pipe(select(getSearchResults))
       .subscribe((searchResults) => {
-        if (this.searching) {
+        if (this.loading) {
+          this.loading = false;
           this.books = searchResults;
         }
       });
     this.querySub = this.form.get('query').valueChanges.subscribe(query => {
-      this.searching = true;
+      this.loading = true;
       this.query = query;
       this.store.dispatch(new Search(query));
     });
