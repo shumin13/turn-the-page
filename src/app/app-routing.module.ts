@@ -26,7 +26,9 @@ const appRoutes: Routes = [
       {
         path: ':id',
         component: BookDetailComponent,
-        resolve: { book: BookResolverService }
+        resolve: {
+          book: BookResolverService
+        }
       }
     ]
   },
