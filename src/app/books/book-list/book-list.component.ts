@@ -16,6 +16,7 @@ import { Book } from '../book.model';
 export class BookListComponent implements OnInit, OnDestroy {
 
   books: Book[] = [];
+  booksDatabase: Book[] = [];
   searchSub: Subscription;
   querySub: Subscription;
   loading = false;
@@ -33,6 +34,7 @@ export class BookListComponent implements OnInit, OnDestroy {
   ngOnInit() {
     this.route.data
       .subscribe((data: { books: Book[] }) => {
+        this.booksDatabase = data.books;
         this.books = data.books;
       });
     this.searchSub = this.store.pipe(select(getSearchResults))
@@ -43,9 +45,13 @@ export class BookListComponent implements OnInit, OnDestroy {
         }
       });
     this.querySub = this.form.get('query').valueChanges.subscribe(query => {
-      this.loading = true;
-      this.query = query;
-      this.store.dispatch(new Search(query));
+      if (query.match(/^\s*$/)) {
+        this.books = this.booksDatabase;
+      } else {
+        this.loading = true;
+        this.query = query;
+        this.store.dispatch(new Search(query));
+      }
     });
   }
 
