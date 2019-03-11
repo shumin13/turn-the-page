@@ -30,8 +30,10 @@ User Stories:
 
 ## Future Implementations
 
+* Get book from api if book is not in store
 * Include update functionality
 * Authentication (Register/Login/Logout)
+* Indicate actual error status in error page
 
 ## Built With
 
